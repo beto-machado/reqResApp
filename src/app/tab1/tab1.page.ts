@@ -10,33 +10,28 @@ export class Tab1Page implements OnInit {
 
   urlImg = '"https://reqres.in/img/faces/';
 
-  listarUsuarios = [];
+  listaUsers = [];
 
-  count: number = 0;
-  next: string = '';
-  previous: string = '';
-  buscarUsuarios: any;
+  total_pages: number = 0;
+  total: number = 0;
+  per_page: string = '';
+  page: '';
 
   constructor(public userService: UserService) { }
 
   ngOnInit(): void {
-    this.buscarUsuarios(this.userService.urlApi);
+    this.buscarUser(this.userService.urlApi);
   }
 
-  buscarPokemon(url: string) {
-    this.listarUsuarios = [];
-    this.userService.buscarListaUsuarios(url).subscribe(retorno => {
-      this.count = retorno['count'];
-      this.next = retorno['next'];
-      this.previous = retorno['previous'];
+  buscarUser(url: string) {
+    this.listaUsers = [];
 
-      retorno['results'].forEach(usuarios => {
-        this.userService.buscarDadosUsuarios(usuarios['url']).subscribe(dadosUsuarios => {
-          this.listarUsuarios.push(dadosUsuarios);
-          this.listarUsuarios.sort((a,b)=> a['id'] - b['id']);
-        })
-      })
+    this.userService.buscarListaUsers(url).subscribe(retorno => {
+      this.page = retorno['page'];
+      this.per_page = retorno['per_page'];
+      this.total = retorno['total'];
+      this.total_pages = retorno['total_pages'];
+      this.listaUsers = retorno['data'];
     });
   }
-
 }

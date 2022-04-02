@@ -1,45 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      <div class="title">Usuários</div>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   
-  <ion-item *ngFor="let usuario of listaUsuarios">
-    <ion-thumbnail slot="start">
-      <img [src]="urlImg + usuario.id.toString().padStart(3, '0') + '.jpg'">
-    </ion-thumbnail>
+  <ion-item *ngFor="let user of listaUsers">
+    <ion-avatar slot="start">
+      <img [src]="user.avatar">
+    </ion-avatar>
+
     <ion-label>
       <div>
-        <h3>{{ usuario.first_name | titlecase }}</h3>
-          <ion-badge *ngFor="let tipo of pokemon.types" [color]="tipo['type']['name']" >
-            {{ tipo['type']['name'] | uppercase }}
-          </ion-badge>
+        <h3>{{ user.first_name + " " + user.last_name }}</h3>
+	      <p>{{ user.email }}</p>
       </div>
     </ion-label>
+
+    <ion-chip color="light" slot="end">
+      <ion-label>{{user.id}}</ion-label>
+    </ion-chip>
   </ion-item>
-
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    
-    <ion-buttons *ngIf="previous" slot="start">
-      <ion-button (click)="paginaAnterior(previous)">
-        <ion-icon slot="icon-only" name="return-down-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    
-    <ion-title class="ion-text-center title" slot="start">{{ paginaAtual }}/{{ totalPagina(count) }}</ion-title>
-
-    <ion-buttons *ngIf="next" slot="end">
-      <ion-button (click)="proximaPagina(next)">
-        <ion-icon slot="icon-only" name="return-down-forward-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>

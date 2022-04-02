@@ -6,15 +6,11 @@ import { element } from 'protractor';
   providedIn: 'root'
 })
 export class UserService {
-  urlApi = 'https://reqres.in/';
+  urlApi = 'https://reqres.in/api/users';
 
   constructor(private http: HttpClient) { }
 
-  buscarListaUsuarios(url: string) {
-    return this.http.get(url);
-  }
-
-  buscarDadosUsuarios(url: string){
+  buscarListaUsers(url: string) {
     return this.http.get(url);
   }
 }
